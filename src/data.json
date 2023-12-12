@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "topic": "JavaScript Basics",
+    "level": "Beginner",
+    "time": 10,
+    "questions": 10
+  },
+  {
+    "id": 2,
+    "topic": "JavaScript ",
+    "level": "Beginner",
+    "time": 10,
+    "questions": 10
+  },
+  {
+    "id": 3,
+    "topic": "Html/CSS",
+    "level": "Beginner",
+    "time": 10,
+    "questions": 10
+  },
+  {
+    "id": 4,
+    "topic": "React",
+    "level": "Beginner",
+    "time": 10,
+    "questions": 10
+  },
+  {
+    "id": 5,
+    "topic": "TypeScript",
+    "level": "Beginner",
+    "time": 10,
+    "questions": 10
+  },
+  {
+    "id": 6,
+    "topic": "Redux",
+    "level": "Beginner",
+    "time": 10,
+    "questions": 10
+  }
+]
