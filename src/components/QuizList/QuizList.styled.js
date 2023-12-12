@@ -14,6 +14,8 @@ const getBorderColor = props => {
       return 'blue';
     case 'Intermediate':
       return 'red';
+    default:
+      return 'black';
   }
 };
 

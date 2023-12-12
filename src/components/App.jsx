@@ -29,4 +29,3 @@ export const App = () => {
     </Container>
   );
 };
-// second commit
