@@ -1,12 +1,14 @@
+import { Topic, Wrapper, Text } from './QuizCard.styled';
+
 // глибока деструктутизація
 export const QuizCard = ({ item: { topic, level, time, questions } }) => {
   return (
-    <div>
-      <h2>{topic}</h2>
-      <p>Level: {level}</p>
-      <p>Time: {time} min</p>
-      <p>Questions: {questions}</p>
-    </div>
+    <Wrapper>
+      <Topic>{topic}</Topic>
+      <Text>Level: {level}</Text>
+      <Text>Time: {time} min</Text>
+      <Text>Questions: {questions}</Text>
+    </Wrapper>
   );
 };
 
