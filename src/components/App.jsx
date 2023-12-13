@@ -50,7 +50,7 @@ export class App extends Component {
       };
     });
   };
-
+  
   addQuiz = newQuiz => {
     this.setState(prevState => {
       return {
@@ -86,6 +86,7 @@ export class App extends Component {
           onChangeLevel={this.changeLevelFilter}
         />
         <QuizList items={visibleQuizItems} onDelete={this.handleDelete} />
+
         <GlobalStyle />
       </Container>
     );
