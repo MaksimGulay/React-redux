@@ -5,13 +5,14 @@
 // import { Component } from 'react';
 import { QuizForm } from './QuizForm/QuizForm';
 import { QuizList } from './QuizList/QuizList';
-import initialQuizItems from '../data.json';
+// import initialQuizItems from '../data.json';
 import { SearchBar } from './SearchBar/SearchBar';
 import { GlobalStyle } from './GlobalStyle';
 import { Container } from './Loyout';
 import { Component } from 'react';
 import { LevelFilter } from './LevelFilter';
 import { TopicFilter } from './TopicFilter';
+import { fetchQuizzes } from 'api';
 
 const localStorageKey = 'quiz-filters';
 
@@ -22,17 +23,19 @@ const intialFilters = {
 
 export class App extends Component {
   state = {
-    quizItems: initialQuizItems,
+    quizItems: [],
     filters: intialFilters,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const savedFilters = localStorage.getItem(localStorageKey);
     if (savedFilters !== null) {
       this.setState({
         filters: JSON.parse(savedFilters),
       });
     }
+    const quizItems = await fetchQuizzes();
+    this.setState({ quizItems });
   }
 
   componentDidUpdate(prevProps, prevState) {
