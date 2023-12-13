@@ -9,16 +9,45 @@ import initialQuizItems from '../data.json';
 import { SearchBar } from './SearchBar/SearchBar';
 import { GlobalStyle } from './GlobalStyle';
 import { Container } from './Loyout';
-
 import { Component } from 'react';
+import { LevelFilter } from './LevelFilter';
+import { TopicFilter } from './TopicFilter';
+
+const localStorageKey = 'quiz-filters';
+
+const intialFilters = {
+  topic: '',
+  level: 'all',
+};
 
 export class App extends Component {
   state = {
     quizItems: initialQuizItems,
-    filters: {
-      topic: '',
-      level: 'all',
-    },
+    filters: intialFilters,
+  };
+
+  componentDidMount() {
+    const savedFilters = localStorage.getItem(localStorageKey);
+    if (savedFilters !== null) {
+      this.setState({
+        filters: JSON.parse(savedFilters),
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { filters: prevFilters } = prevState;
+    const { filters: nextFilters } = this.state;
+
+    if (prevFilters !== nextFilters) {
+      localStorage.setItem(localStorageKey, JSON.stringify(nextFilters));
+    }
+  }
+
+  resetFilters = () => {
+    this.setState({
+      filters: intialFilters,
+    });
   };
 
   changeTopicFilter = newTopic => {
@@ -50,7 +79,7 @@ export class App extends Component {
       };
     });
   };
-  
+
   addQuiz = newQuiz => {
     this.setState(prevState => {
       return {
@@ -79,12 +108,17 @@ export class App extends Component {
     return (
       <Container>
         <QuizForm onAdd={this.addQuiz} />
-        <SearchBar
-          topicFilter={filters.topic}
-          levelFilter={filters.level}
-          onChangeTopic={this.changeTopicFilter}
-          onChangeLevel={this.changeLevelFilter}
-        />
+        <SearchBar onReset={this.resetFilters}>
+          <TopicFilter
+            value={filters.topic}
+            onChange={this.changeTopicFilter}
+          />
+          <LevelFilter
+            value={filters.level}
+            onChange={this.changeLevelFilter}
+          />
+        </SearchBar>
+
         <QuizList items={visibleQuizItems} onDelete={this.handleDelete} />
 
         <GlobalStyle />
