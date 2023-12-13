@@ -8,11 +8,11 @@ export const List = styled.ul`
 
 const getBorderColor = props => {
   switch (props.level) {
-    case 'Beginner':
+    case 'beginner':
       return 'green';
-    case 'Advanced':
+    case 'advanced':
       return 'blue';
-    case 'Intermediate':
+    case 'intermediate':
       return 'red';
     default:
       return 'black';

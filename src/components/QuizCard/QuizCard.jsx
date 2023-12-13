@@ -17,14 +17,3 @@ export const QuizCard = ({
     </Wrapper>
   );
 };
-
-// export const QuizCard = ({ item }) => {
-//   return (
-//     <div>
-//       <h2>{item.topic}</h2>
-//       <p>Level: {item.level}</p>
-//       <p>Time: {item.time} min</p>
-//       <p>Questions: {item.questions}</p>
-//     </div>
-//   );
-// };

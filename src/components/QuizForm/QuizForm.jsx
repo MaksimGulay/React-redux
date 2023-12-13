@@ -1,81 +1,69 @@
 import { Formik } from 'formik';
 import { StyledForm, StyledField, StyleError } from './QuizForm.styled';
 import * as Yup from 'yup'; //для валідації форми
-
-// const SignupSchema = Yup.object().shape({
-//   firstName: Yup.string()
-//     .min(2, 'Too Short!')
-//     .max(50, 'Too Long!')
-//     .required('Required'),
-//   lastName: Yup.string()
-//     .min(2, 'Too Short!')
-//     .max(50, 'Too Long!')
-//     .required('Required'),
-//   email: Yup.string().email('Invalid email').required('Required'),
-// });
+import { nanoid } from 'nanoid';
 
 const schema = Yup.object().shape({
-  topic: Yup.string().min(2, 'Too Short!').required('Required'),
+  topic: Yup.string().min(1, 'Too Short!').required('Required'),
   level: Yup.string()
-    .oneOf(['beginer', 'intermediate', 'advanced'])
+    .oneOf(['beginner', 'intermediate', 'advanced'])
     .required('Required'),
   time: Yup.number()
-    .positive()
+    .positive('Must be >0')
     .min(10, 'Not enough time!')
     .required('Required'),
   questions: Yup.number()
-    .positive('Mast be > 0')
+    .positive('Must be >0')
     .min(3, 'Min 3 q!')
     .required('Required'),
 });
 
-export const QuizForm = () => {
+export const QuizForm = ({ onAdd }) => {
   return (
-    <div>
-      <Formik
-        initialValues={{
-          topic: '',
-          level: 'intermediate',
-          time: 0,
-          questions: 0,
-        }}
-        validationSchema={schema}
-        onSubmit={values => {
-          console.log(values);
-        }}
-      >
-        <StyledForm>
-          <label>
-            Topic
-            <StyledField name="topic" placeholder="Quize topic" />
-            <StyleError name="topic" />
-          </label>
+    <Formik
+      initialValues={{
+        topic: '',
+        level: 'beginner',
+        time: 0,
+        questions: 0,
+      }}
+      validationSchema={schema}
+      onSubmit={(values, actions) => {
+        onAdd({ ...values, id: nanoid() });
+        actions.resetForm();
+      }}
+    >
+      <StyledForm>
+        <label>
+          Topic
+          <StyledField name="topic" placeholder="Quiz topic..." />
+          <StyleError name="topic" component="div" />
+        </label>
 
-          <label>
-            Level
-            <StyledField as="select" name="level">
-              <option value="beginer">Beginer</option>
-              <option value="intermediate">intermediate</option>
-              <option value="advanced">Advanced</option>
-            </StyledField>
-            <StyleError name="level" />
-          </label>
+        <label>
+          Level
+          <StyledField as="select" name="level">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </StyledField>
+          <StyleError name="level" component="div" />
+        </label>
 
-          <label>
-            Time
-            <StyledField name="time" type="number" />
-            <StyleError name="time" />
-          </label>
+        <label>
+          Time
+          <StyledField name="time" type="number" />
+          <StyleError name="time" component="div" />
+        </label>
 
-          <label>
-            Questions
-            <StyledField name="questions" type="number" />
-            <StyleError name="questions" />
-          </label>
+        <label>
+          Questions
+          <StyledField name="questions" type="number" />
+          <StyleError name="questions" component="div" />
+        </label>
 
-          <button type="submit">Submit</button>
-        </StyledForm>
-      </Formik>
-    </div>
+        <button type="submit">Submit</button>
+      </StyledForm>
+    </Formik>
   );
 };
