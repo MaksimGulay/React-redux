@@ -1,9 +1,16 @@
+// import { QuizList } from './QuizList/QuizList';
+// import initialQuizItems from '../data.json';
+// import { SearchBar } from './SearchBar/SearchBar';
+// import { Container } from './Loyout';
+// import { Component } from 'react';
+import { QuizForm } from './QuizForm/QuizForm';
 import { QuizList } from './QuizList/QuizList';
 import initialQuizItems from '../data.json';
 import { SearchBar } from './SearchBar/SearchBar';
+import { GlobalStyle } from './GlobalStyle';
 import { Container } from './Loyout';
+
 import { Component } from 'react';
-import { QuizForm } from './QuizForm/QuizForm';
 
 export class App extends Component {
   state = {
@@ -79,6 +86,7 @@ export class App extends Component {
           onChangeLevel={this.changeLevelFilter}
         />
         <QuizList items={visibleQuizItems} onDelete={this.handleDelete} />
+        <GlobalStyle />
       </Container>
     );
   }
